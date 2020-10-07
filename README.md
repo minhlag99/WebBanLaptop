@@ -1,2 +1,0 @@
-# WebBanLaptop
-Bán Laptop
