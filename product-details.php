@@ -137,7 +137,7 @@
               </div>
 
               <div class="content">
-                <p><?php echo $row['Content'];?></p>
+                <p><?php echo $row['short_description'];?></p>
               </div>
             </div>
             <br>
@@ -177,22 +177,8 @@
 
         <h4>Description</h4>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea illum necessitatibus adipisci cum dolor quam magnam similique quasi iure blanditiis?</p>
-
-        <br>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum minus reprehenderit, porro alias pariatur perferendis, eaque possimus fugit doloribus perspiciatis.</p>
-
-        <br>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur expedita, blanditiis soluta, laudantium veritatis esse nulla quasi praesentium ea architecto vero. Nemo nesciunt veritatis maxime accusamus ipsa optio inventore rem cupiditate vero vitae cumque necessitatibus nisi, sapiente possimus perspiciatis, corporis!</p>
-
-        <br>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde ratione animi aliquid, non ipsum soluta similique rerum commodi! Ullam quam cupiditate reiciendis a labore. Eos rerum deserunt, sequi dolores vitae consectetur harum animi officiis id vel similique qui, laborum corrupti fuga maiores maxime! Quasi, asperiores nobis accusamus similique est modi totam corporis perferendis consequuntur ea tempore, corrupti provident quos quo.</p>
-
-
-
+        <p><?php echo $row['Content'];?></p>
+        <li><?php echo $row['Content'];?></li>
         <br>
         <br>
         <br>

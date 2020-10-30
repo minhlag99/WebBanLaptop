@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <title>PHPJabbers.com | Free Mobile Store Website Template</title>
+    <title>Laptop Store | Website</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -56,48 +57,50 @@
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Mobile Store<em> Website</em></h2></a>
+          <a class="navbar-brand" href="index.php"><h2>Laptop Store<em>.Website</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="index.php">Home
+                <a class="nav-link" href="index.php">Trang Chủ
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="products.php">Products</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="checkout.php">Checkout</a>
-              </li>
               <li class="nav-item dropdown">
-			  <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Product</a>
-			  <div class="dropdown-menu">
+			            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="products.php" role="button" aria-haspopup="true" aria-expanded="false">Hãng sản xuất</a>
+			            <div class="dropdown-menu">
 				  <?php
 				  include "server.php";
 				  $query="Select * from catalog";
 				  $data =mysqli_query($conn,$query);
 				  while($row=mysqli_fetch_array($data))
 				  {
-
-				  
 				  ?>
-
-	
-                
-                    <a class="dropdown-item" href=*"><?php echo $row['Name']?></a>
-                    
-				
-				<?php
-				  }
-				  ?>
+                    <a class="dropdown-item" href="products1.php?ID=<?php echo$row['Parent_ID'];?>"><?php echo $row['Name']?></a>
+          <?php
+          }
+          ?>
 				  </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.php">Contact Us</a>
+                <a class="nav-link" href="products.php?page=1">Sản phẩm</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="checkout.php">Thanh toán</a>
+              </li>
+              <li class="nav-item">
+
+              <?php 
+                if (isset($_SESSION['Name']) && $_SESSION['Name']){
+                  echo 'Xin chào '.$_SESSION['Name']."<br/>";
+                  echo '<a href="logout.php" class="filled-button">Đăng xuất</a>';
+                }
+                else{
+                  echo '<a href="login.php" class="filled-button">Đăng nhập</a>';
+              }
+              ?>
               </li>
             </ul>
           </div>
@@ -113,9 +116,9 @@
           <div class="item item-1">
             <div class="img-fill">
                 <div class="text-content">
-                  <h6>lorem ipsum dolor sit amet!</h6>
-                  <h4>Quam temporibus accusam <br> hic ducimus quia</h4>
-                  <p>Magni deserunt dolorem consectetur adipisicing elit. Corporis molestiae optio, laudantium odio quod rerum maiores, omnis unde quae illo.</p>
+                  <h6>viết gì đó</h6>
+                  <h4>viết gì đó</h4>
+                  <p>viết gì đó</p>
                   <a href="products.html" class="filled-button">Products</a>
                 </div>
             </div>
@@ -125,9 +128,9 @@
           <div class="item item-2">
             <div class="img-fill">
                 <div class="text-content">
-                  <h6>magni deserunt dolorem harum quas!</h6>
-                  <h4>Aliquam iusto harum <br>  ratione porro odio</h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At culpa cupiditate mollitia adipisci assumenda laborum eius quae quo excepturi, eveniet. Dicta nulla ea beatae consequuntur?</p>
+                  <h6>viết gì đó</h6>
+                  <h4>viết gì đó</h4>
+                  <p>viết gì đó</p>
                   <a href="about.html" class="filled-button">About Us</a>
                 </div>
             </div>
@@ -137,9 +140,9 @@
           <div class="item item-3">
             <div class="img-fill">
                 <div class="text-content">
-                  <h6>alias officia qui quae vitae natus!</h6>
-                  <h4>Lorem ipsum dolor <br>sit amet, consectetur.</h4>
-                  <p>Vivamus ut tellus mi. Nulla nec cursus elit, id vulputate mi. Sed nec cursus augue. Phasellus lacinia ac sapien vitae dapibus. Mauris ut dapibus velit cras interdum nisl ac urna tempor mollis.</p>
+                  <h6>viết gì đó</h6>
+                  <h4>viết gì đó</h4>
+                  <p>viết gì đó</p>
                   <a href="contact.html" class="filled-button">Contact Us</a>
                 </div>
             </div>
@@ -153,11 +156,11 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8">
-            <h4>Request a call back right now ?</h4>
-            <span>Mauris ut dapibus velit cras interdum nisl ac urna tempor mollis.</span>
+            <h4>Gọi cho chúng tôi ngay</h4>
+            <span>viết gì đó</span>
           </div>
           <div class="col-md-4">
-            <a href="contact.html" class="border-button">Contact Us</a>
+            <a href="contact.html" class="border-button">Thông tin liên hệ</a>
           </div>
         </div>
       </div>
@@ -168,116 +171,38 @@
         <div class="row">
           <div class="col-md-12">
             <div class="section-heading">
-              <h2>Featured <em>Products</em></h2>
-              <span>Aliquam id urna imperdiet libero mollis hendrerit</span>
+              <h2>Sản phẩm <em> Mới nhất</em></h2>
             </div>
 		  </div>
 		  <?php
 		  include "server.php";
-		  $query="SELECT * FROM product";
+		  $query="SELECT * FROM product order by ID desc limit 6";
 		  $data=mysqli_query($conn,$query);
-		 
-
 		  while( $row=mysqli_fetch_array($data))
 		  {
 		  ?>
           <div class="col-md-4">
             <div class="service-item">
-              <img src="<?php echo $row['Image_link']; ?>" alt="">
+              <img style ="height:300px" src="<?php echo $row['Image_link']; ?>" alt="">
               <div class="down-content">
                 <h4> <?php echo $row['Name']; ?></h4>
                 <div style="margin-bottom:10px;">
-                  <span> <del><sup>$</sup>2000.00</del>  <sup>$</sup><?php echo $row['Price'];?> </span>
+                  <span> <del><sup>-</sup>-</del>  <sup>VNĐ</sup><?php echo $row['Price'];?> </span>
                 </div>
-
-                <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>
-                <a href="product-details.html" class="filled-button">View More</a>
+                <p><?php echo $row['short_description'];?></p>
+                <a href="product-details.php?sanpham=<?php echo$row['ID'];?>" class="filled-button">Chi Tiet</a>
               </div>
             </div>
-            
             <br>
 		  </div>
 		  <?php 
 		}?>
-         
-        
         </div>
       </div>
     </div>
 
-    <div class="fun-facts">
-      <div class="container">
-        <div class="more-info-content">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="left-image">
-                <img src="assets/images/about-1-570x350.jpg" class="img-fluid" alt="">
-              </div>
-            </div>
-            <div class="col-md-6 align-self-center">
-              <div class="right-content">
-                <span>Who we are</span>
-                <h2>Get to know about <em>our company</em></h2>
-                <p>Curabitur pulvinar sem a leo tempus facilisis. Sed non sagittis neque. Nulla conse quat tellus nibh, id molestie felis sagittis ut. Nam ullamcorper tempus ipsum in cursus</p>
-                <a href="about.html" class="filled-button">Read More</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="more-info">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Read our <em>Blog</em></h2>
-          <span>Aliquam id urna imperdiet libero mollis hendrerit</span>
-        </div>
-
-        <div class="row" id="tabs">
-          <div class="col-md-4">
-            <ul>
-              <li><a href='#tabs-1'>Lorem ipsum dolor sit amet, consectetur adipisicing <br> <small>John Doe &nbsp;|&nbsp; 27.07.2020 10:10</small></a></li>
-              <li><a href='#tabs-2'>Mauris lobortis quam id dictum dignissim <br> <small>John Doe &nbsp;|&nbsp; 27.07.2020 10:10</small></a></li>
-              <li><a href='#tabs-3'>Class aptent taciti sociosqu ad litora torquent per <br> <small>John Doe &nbsp;|&nbsp; 27.07.2020 10:10</small></a></li>
-            </ul>
-
-            <br>
-
-            <div class="text-center">
-              <a href="blog.html" class="filled-button">Read More</a>
-            </div>
-
-            <br>
-          </div>
-
-          <div class="col-md-8">
-            <section class='tabs-content'>
-              <article id='tabs-1'>
-                <img src="assets/images/blog-image-1-940x460.jpg" alt="">
-                <h4><a href="blog-details.html">Lorem ipsum dolor sit amet, consectetur adipisicing.</a></h4>
-                <p>Sed ut dolor in augue cursus ultrices. Vivamus mauris turpis, auctor vel facilisis in, tincidunt vel diam. Sed vitae scelerisque orci. Nunc non magna orci. Aliquam commodo mauris ante, quis posuere nibh vestibulum sit amet.</p>
-              </article>
-              <article id='tabs-2'>
-                <img src="assets/images/blog-image-2-940x460.jpg" alt="">
-                <h4><a href="blog-details.html">Mauris lobortis quam id dictum dignissim</a></h4>
-                <p>Sed ut dolor in augue cursus ultrices. Vivamus mauris turpis, auctor vel facilisis in, tincidunt vel diam. Sed vitae scelerisque orci. Nunc non magna orci. Aliquam commodo mauris ante, quis posuere nibh vestibulum sit amet</p>
-              </article>
-              <article id='tabs-3'>
-                <img src="assets/images/blog-image-3-940x460.jpg" alt="">
-                <h4><a href="blog-details.html">Class aptent taciti sociosqu ad litora torquent per</a></h4>
-                <p>Mauris lobortis quam id dictum dignissim. Donec pellentesque erat dolor, cursus dapibus turpis hendrerit quis. Suspendisse at suscipit arcu. Nulla sed erat lectus. Nulla facilisi. In sit amet neque sapien. Donec scelerisque mi at gravida efficitur. Nunc lacinia a est eu malesuada. Curabitur eleifend elit sapien, sed pulvinar orci luctus eget. 
-                </p>
-              </article>
-            </section>
-          </div>
-        </div>
-
-        
-      </div>
-    </div>
-
-    <div class="testimonials">
+    <!--<div class="testimonials">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -288,7 +213,6 @@
           </div>
           <div class="col-md-12">
             <div class="owl-testimonials owl-carousel">
-              
               <div class="testimonial-item">
                 <div class="inner-content">
                   <h4>George Walker</h4>
@@ -380,7 +304,7 @@
         <br>
         <br>
       </div>
-    </div>
+    </div>-->
 
     <!-- Footer Starts Here -->
     <footer>
@@ -408,7 +332,7 @@
           <div class="col-md-3 footer-item">
             <h4>Additional Pages</h4>
             <ul class="menu-list">
-              <li><a href="#">Products</a></li>
+              <li><a href="products.php?page=1">Products</a></li>
               <li><a href="#">About Us</a></li>
               <li><a href="#">Blog</a></li>
               <li><a href="#">Contact Us</a></li>
