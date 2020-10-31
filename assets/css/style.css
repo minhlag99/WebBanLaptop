@@ -679,6 +679,10 @@ ul.slick-dots {
     margin-bottom: 20px;
 }
 
+.service-item .down-content a {
+    margin-left: 30px
+}
+
 .page-link:hover,
 .page-link {
     color: #a4c639;

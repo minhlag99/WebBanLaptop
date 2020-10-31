@@ -191,6 +191,7 @@
                 </div>
                 <p><?php echo $row['short_description'];?></p>
                 <a href="product-details.php?sanpham=<?php echo$row['ID'];?>" class="filled-button">Chi Tiet</a>
+                <a href="product-details.php?sanpham=<?php echo$row['ID'];?>" class="filled-button">Chi Tiet</a>
               </div>
             </div>
             <br>

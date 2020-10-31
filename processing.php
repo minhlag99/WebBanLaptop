@@ -10,7 +10,7 @@
           
     //Khai báo utf-8 để hiển thị được tiếng việt
     //Lấy dữ liệu từ file dangky.php
-    $username   = addslashes($_POST['email']);
+    $username   = addslashes($_POST['email_user']);
     $password   = addslashes($_POST['pass']);
     $repass      = addslashes($_POST['re_pass']);
     $fullname   = addslashes($_POST['name']);
@@ -20,7 +20,7 @@
     //Kiểm tra người dùng đã nhập liệu đầy đủ chưa
     if (!$username || !$password || !$repass || !$fullname || !$address)
     {
-        echo "Vui lòng nhập đầy đủ thông tin. <a href='javascript: history.go(-1)'>Trở lại</a>";
+        echo "<script>alert('Xin vui lòng điền đủ thông tin');window.history.go(-1);</script>";
         exit;
     }
     // Mã khóa mật khẩu
@@ -29,7 +29,7 @@
     $dataa = mysqli_query($conn,$queryy);
     //Kiểm tra tên đăng nhập này đã có người dùng chưa
     if ( mysqli_num_rows($dataa) > 0){
-        echo "Tên đăng nhập này đã có người dùng. Vui lòng chọn tên đăng nhập khác. <a href='javascript: history.go(-1)'>Trở lại</a>";
+        echo "<script>alert('Tên đăng nhập này đã có người dùng');window.history.go(-1);</script>";
         exit;
     }
           
@@ -58,10 +58,10 @@
     $sql = "INSERT INTO user (Name, Email, Password, Address) 
     VALUES ('{$fullname}','{$username}','{$password}','{$address}')";
     if (mysqli_query($conn, $sql)) {
-        echo "Quá trình đăng ký thành công. <a href='/'>Về trang chủ</a>";
+        echo "<script>alert('Đăng ký thành công');window.location.href='index.php';</script>";
       }
       else {
-        echo "Có lỗi xảy ra trong quá trình đăng ký. <a href='.php'>Thử lại</a>";
+        echo "Có lỗi xảy ra trong quá trình đăng ký. <script>window.history.go(-1);}</script>";
       }
                           
     //Thông báo quá trình lưu

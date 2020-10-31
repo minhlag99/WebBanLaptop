@@ -35,13 +35,13 @@ if (isset($_POST['login']))
     $row1 = mysqli_fetch_array($data1);
      
     //So sánh 2 mật khẩu có trùng khớp hay không
-    if ($password != $row1['Password']) {
-        echo "Mật khẩu không đúng. Vui lòng nhập lại. <a href='javascript: history.go(-1)'>Trở lại</a>";
+    if ($password != $row1['Password']) {	
+		//echo "Mật khẩu không đúng. Vui lòng nhập lại. <a href='text/javascript: history.go(-1)'>Trở lại</a>";
         exit;
     }
     //Lưu tên đăng nhập
     $_SESSION['Name'] = $username;
-    echo "Xin chào " . $username . ". Bạn đã đăng nhập thành công. <a href='index1.php'>Về trang chủ</a>";
+	echo "<script>alert('Đăng nhập thành công');window.location.href='index.php';</script>";
     die();
 }
 ?>
