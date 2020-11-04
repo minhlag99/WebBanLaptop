@@ -69,16 +69,16 @@
                 </a>
               </li>
               <li class="nav-item dropdown">
-			            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="products.php" role="button" aria-haspopup="true" aria-expanded="false">Hãng sản xuất</a>
+			            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hãng sản xuất</a>
 			            <div class="dropdown-menu">
 				  <?php
 				  include "server.php";
-				  $query="Select * from catalog";
+				  $query="SELECT * from catalog";
 				  $data =mysqli_query($conn,$query);
 				  while($row=mysqli_fetch_array($data))
 				  {
 				  ?>
-                    <a class="dropdown-item" href="products1.php?ID=<?php echo$row['Parent_ID'];?>"><?php echo $row['Name']?></a>
+                    <a class="dropdown-item" href="products_brand.php?ID=<?php echo$row['Parent_ID'];?>"><?php echo $row['Name']?></a>
           <?php
           }
           ?>
@@ -91,7 +91,6 @@
                 <a class="nav-link" href="checkout.php">Thanh toán</a>
               </li>
               <li class="nav-item">
-
               <?php 
                 if (isset($_SESSION['Name']) && $_SESSION['Name']){
                   echo 'Xin chào '.$_SESSION['Name']."<br/>";
@@ -116,10 +115,9 @@
           <div class="item item-1">
             <div class="img-fill">
                 <div class="text-content">
-                  <h6>viết gì đó</h6>
-                  <h4>viết gì đó</h4>
-                  <p>viết gì đó</p>
-                  <a href="products.html" class="filled-button">Products</a>
+                  <h6>Xem tất cả sản phẩm</h6> 
+                  <p>Bán tất cả các loại laptop của nhiều thương hiệu khác nhau</p>
+                  <a href="products.php" class="filled-button">Products</a>
                 </div>
             </div>
           </div>
@@ -128,10 +126,10 @@
           <div class="item item-2">
             <div class="img-fill">
                 <div class="text-content">
-                  <h6>viết gì đó</h6>
-                  <h4>viết gì đó</h4>
-                  <p>viết gì đó</p>
-                  <a href="about.html" class="filled-button">About Us</a>
+                  <!--<h6>Xem sản phẩm</h6>
+                  <h4></h4>
+                  <p>Bán tất cả các loại laptop của nhiều thương hiệu khác nhau</p>
+                  <a href="about.php" class="filled-button">About Us</a>-->
                 </div>
             </div>
           </div>
@@ -140,10 +138,10 @@
           <div class="item item-3">
             <div class="img-fill">
                 <div class="text-content">
-                  <h6>viết gì đó</h6>
+                  <!--<h6>viết gì đó</h6>
                   <h4>viết gì đó</h4>
                   <p>viết gì đó</p>
-                  <a href="contact.html" class="filled-button">Contact Us</a>
+                  <a href="contact.html" class="filled-button">Contact Us</a>-->
                 </div>
             </div>
           </div>
@@ -157,7 +155,7 @@
         <div class="row">
           <div class="col-md-8">
             <h4>Gọi cho chúng tôi ngay</h4>
-            <span>viết gì đó</span>
+            <span></span>
           </div>
           <div class="col-md-4">
             <a href="contact.html" class="border-button">Thông tin liên hệ</a>
@@ -187,11 +185,11 @@
               <div class="down-content">
                 <h4> <?php echo $row['Name']; ?></h4>
                 <div style="margin-bottom:10px;">
-                  <span> <del><sup>-</sup>-</del>  <sup>VNĐ</sup><?php echo $row['Price'];?> </span>
+                  <span><sup>VNĐ</sup><?php echo $row['Price'];?> </span>
                 </div>
                 <p><?php echo $row['short_description'];?></p>
-                <a href="product-details.php?sanpham=<?php echo$row['ID'];?>" class="filled-button">Chi Tiet</a>
-                <a href="product-details.php?sanpham=<?php echo$row['ID'];?>" class="filled-button">Chi Tiet</a>
+                <a href="product-details.php?sanpham=<?php echo$row['ID'];?>" class="filled-button">Chi tiết</a>
+                <!--<a href="product-details.php?sanpham=<?php echo$row['ID'];?>" class="filled-button">Thêm vào giỏ hàng</a>-->
               </div>
             </div>
             <br>
@@ -201,8 +199,6 @@
         </div>
       </div>
     </div>
-
-
     <!--<div class="testimonials">
       <div class="container">
         <div class="row">
@@ -379,7 +375,7 @@
           <div class="col-md-12">
             <p>
                 Copyright © 2020 Company Name
-                - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
+                - Template by: <a href="https://www.phpjabbers.com/"></a>
             </p>
           </div>
         </div>

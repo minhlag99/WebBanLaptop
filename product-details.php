@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <title>PHPJabbers.com | Free Mobile Store Website Template</title>
+    <title>Laptop Store | Website</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -52,55 +53,73 @@
         </div>
       </div>
     </div>
-    
+
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Mobile Store<em> Website</em></h2></a>
+          <a class="navbar-brand" href="index.php"><h2>Laptop Store<em>.Website</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Home
+              <li class="nav-item active">
+                <a class="nav-link" href="index.php">Trang Chủ
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="products.html">Products</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="checkout.html">Checkout</a>
-              </li>
               <li class="nav-item dropdown">
-                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-              
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="about.html">About Us</a>
-                    <a class="dropdown-item" href="blog.html">Blog</a>
-                    <a class="dropdown-item" href="testimonials.html">Testimonials</a>
-                    <a class="dropdown-item" href="terms.html">Terms</a>
-                </div>
+			            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hãng sản xuất</a>
+			            <div class="dropdown-menu">
+				  <?php
+				  include "server.php";
+				  $query="SELECT * from catalog";
+				  $data =mysqli_query($conn,$query);
+				  while($row=mysqli_fetch_array($data))
+				  {
+				  ?>
+                    <a class="dropdown-item" href="products_brand.php?ID=<?php echo$row['Parent_ID'];?>"><?php echo $row['Name']?></a>
+          <?php
+          }
+          ?>
+				  </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
+                <a class="nav-link" href="products.php?page=1">Sản phẩm</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="checkout.php">Thanh toán</a>
+              </li>
+              <li class="nav-item">
+              <?php 
+                if (isset($_SESSION['Name']) && $_SESSION['Name']){
+                  echo 'Xin chào '.$_SESSION['Name']."<br/>";
+                  echo '<a href="logout.php" class="filled-button">Đăng xuất</a>';
+                }
+                else{
+                  echo '<a href="login.php" class="filled-button">Đăng nhập</a>';
+              }
+              ?>
               </li>
             </ul>
           </div>
         </div>
       </nav>
     </header>
-
     <!-- Page Content -->
+     <?php 
+         include "server.php";
+         $detail=$_GET['sanpham'];
+         $query="SELECT * FROM product Where ID= $detail";
+         $data=mysqli_query($conn,$query);
+         $row=mysqli_fetch_array($data)
+       
+        ?>
     <div class="page-heading header-text">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1><small><del><sup>$</sup>1999 </del></small> &nbsp; <sup>$</sup>1779</h1>
-            <span>
-                Lorem ipsum dolor sit amet.
-            </span>
+            <h1><sup>VNĐ</sup><?php echo $row['Price'];?></h1>
           </div>
         </div>
       </div>
@@ -111,14 +130,6 @@
       <div class="container">
       
         <div class="row">
-        <?php 
-         include "server.php";
-         $detail=$_GET['sanpham'];
-         $query="SELECT * FROM product Where ID= $detail";
-         $data=mysqli_query($conn,$query);
-         $row=mysqli_fetch_array($data)
-       
-        ?>
           <div class="col-md-7">
             <div>
               <img src="<?php echo $row['Image_link'];?>" alt="" class="img-fluid wc-image">
@@ -143,7 +154,7 @@
             <br>
             <br>
           
-            <h4>Add to Cart</h4>
+            <h4>Thêm vào giỏ hàng</h4>
 
             <br>
 
@@ -152,13 +163,13 @@
               <div class="row">
                 <div class="col-md-6 col-sm-12">
                   <div class="form-group">
-                    <label for="">Quantity</label>
-                    <input type="text" value="1" required="" class="form-control">
+                    <label for=""></label>
+                    <input type="number" id="quantity" name="quantity" min="1" max="5" class="form-control">
                   </div>
                 </div>
                 <div class="col-lg-12">
                   <div class="form-group">
-                    <a href="#"class="filled-button">Add to Cart</a>
+                    <a href="#"class="filled-button">Thêm vào giỏ hàng</a>
                   </div>
                 </div>
               </div>
@@ -170,14 +181,9 @@
           
         </div>
         
-        
-        
-
         <br>
 
         <h4>Description</h4>
-
-        <p><?php echo $row['Content'];?></p>
         <li><?php echo $row['Content'];?></li>
         <br>
         <br>
@@ -190,8 +196,8 @@
       <div class="container">
         <div class="row">
           <div class="col-md-3 footer-item">
-            <h4>Mobile Store</h4>
-            <p>Vivamus tellus mi. Nulla ne cursus elit,vulputate. Sed ne cursus augue hasellus lacinia sapien vitae.</p>
+            <h4>Laptop Store</h4>
+            <p></p>
             <ul class="social-icons">
               <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
               <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -201,11 +207,11 @@
           <div class="col-md-3 footer-item">
             <h4>Useful Links</h4>
             <ul class="menu-list">
-              <li><a href="#">Vivamus ut tellus mi</a></li>
-              <li><a href="#">Nulla nec cursus elit</a></li>
-              <li><a href="#">Vulputate sed nec</a></li>
-              <li><a href="#">Cursus augue hasellus</a></li>
-              <li><a href="#">Lacinia ac sapien</a></li>
+              <li><a href="#"></a></li>
+              <li><a href="#"></a></li>
+              <li><a href="#"></a></li>
+              <li><a href="#"></a></li>
+              <li><a href="#"></a></li>
             </ul>
           </div>
           <div class="col-md-3 footer-item">
@@ -257,7 +263,7 @@
           <div class="col-md-12">
             <p>
                 Copyright © 2020 Company Name
-                - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
+                - Template by: <a href="https://www.phpjabbers.com/"></a>
             </p>
           </div>
         </div>

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <title>PHPJabbers.com | Free Mobile Store Website Template</title>
+    <title>Laptop Store | Website</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +20,9 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/owl.css">
   </head>
+
   <body>
+
     <!-- ***** Preloader Start ***** -->
     <div id="preloader">
         <div class="jumper">
@@ -50,39 +53,53 @@
         </div>
       </div>
     </div>
-    
+
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Mobile Store<em> Website</em></h2></a>
+          <a class="navbar-brand" href="index.php"><h2>Laptop Store<em>.Website</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Home
+              <li class="nav-item active">
+                <a class="nav-link" href="index.php">Trang Chủ
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="products.html">Products</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="checkout.html">Checkout</a>
-              </li>
               <li class="nav-item dropdown">
-                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-              
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="about.html">About Us</a>
-                    <a class="dropdown-item" href="blog.html">Blog</a>
-                    <a class="dropdown-item" href="testimonials.html">Testimonials</a>
-                    <a class="dropdown-item" href="terms.html">Terms</a>
-                </div>
+			            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hãng sản xuất</a>
+			            <div class="dropdown-menu">
+				  <?php
+				  include "server.php";
+				  $query="SELECT * from catalog";
+				  $data =mysqli_query($conn,$query);
+				  while($row=mysqli_fetch_array($data))
+				  {
+				  ?>
+                    <a class="dropdown-item" href="products_brand.php?ID=<?php echo$row['Parent_ID'];?>"><?php echo $row['Name']?></a>
+          <?php
+          }
+          ?>
+				  </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
+                <a class="nav-link" href="products.php?page=1">Sản phẩm</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="checkout.php">Thanh toán</a>
+              </li>
+              <li class="nav-item">
+              <?php 
+                if (isset($_SESSION['Name']) && $_SESSION['Name']){
+                  echo 'Xin chào '.$_SESSION['Name']."<br/>";
+                  echo '<a href="logout.php" class="filled-button">Đăng xuất</a>';
+                }
+                else{
+                  echo '<a href="login.php" class="filled-button">Đăng nhập</a>';
+              }
+              ?>
               </li>
             </ul>
           </div>
@@ -109,14 +126,13 @@
             include "server.php";
             $limit=6;
             $query="SELECT * FROM product ";
-           
             $data=mysqli_query($conn,$query);
             $num_rows=mysqli_num_rows($data);
             $total_page=ceil($num_rows/$limit);
             $curent_page=$_GET['page'];
             if(!$curent_page){
               $curent_page=1;
-              header('location:products.php?page=1');
+              header('location:$curent_page/page=1');
             }
             if($curent_page>$total_page){
               $curent_page=$total_page;
@@ -141,12 +157,12 @@
                 <h4><?php echo $row['Name']; ?></h4>
                 <div style="margin-bottom:10px;">
                   <span>
-                      <del><sup>$</sup>1999 </del> &nbsp; <sup>VND</sup><?php echo $row['Price'];?>
+                     <sup>VND</sup><?php echo $row['Price'];?>
                   </span>
                 </div>
 
                 <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis asperiores eveniet iure impedit soluta aliquid. </p>
-                <a href="product-details.php?sanpham=<?php echo$row['ID'];?>" class="filled-button">Chi Tiet</a>
+                <a href="product-details.php?sanpham=<?php echo$row['ID'];?>" class="filled-button">Chi tiết</a>
               </div>
             </div>
 

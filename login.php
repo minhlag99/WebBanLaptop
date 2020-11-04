@@ -15,7 +15,7 @@ if (isset($_POST['login']))
      
     //Kiểm tra đã nhập đủ tên đăng nhập với mật khẩu chưa
     if (!$username || !$password) {
-        echo "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu. <a href='javascript: history.go(-1)'>Trở lại</a>";
+		echo "<script>alert('Xin vui lòng điền đủ thông tin');window.history.go(-1);</script>";
         exit;
     }
      
@@ -25,7 +25,7 @@ if (isset($_POST['login']))
 	$query ="SELECT Name FROM user WHERE Name='$username'";
 	$data =mysqli_query($conn,$query);
     if (mysqli_num_rows($data) == 0) {
-        echo "Tên đăng nhập này không tồn tại. Vui lòng kiểm tra lại. <a href='javascript: history.go(-1)'>Trở lại</a>";
+        echo "<script>alert('Tên đăng nhập này không tồn tại');history.go(-1);</script>";
         exit;
     }
      
@@ -41,7 +41,7 @@ if (isset($_POST['login']))
     }
     //Lưu tên đăng nhập
     $_SESSION['Name'] = $username;
-	echo "<script>alert('Đăng nhập thành công');window.location.href='index.php';</script>";
+	echo "<script>alert('Đăng nhập thành công');history.go(-2);;</script>";
     die();
 }
 ?>

@@ -58,10 +58,10 @@
     $sql = "INSERT INTO user (Name, Email, Password, Address) 
     VALUES ('{$fullname}','{$username}','{$password}','{$address}')";
     if (mysqli_query($conn, $sql)) {
-        echo "<script>alert('Đăng ký thành công');window.location.href='index.php';</script>";
+        echo "<script>alert('Đăng ký thành công');window.history.go(-2);</script>";
       }
       else {
-        echo "Có lỗi xảy ra trong quá trình đăng ký. <script>window.history.go(-1);}</script>";
+        echo "<script>alert('Có lỗi xảy ra trong quá trình đăng ký');window.location.href='index.php';</script>";
       }
                           
     //Thông báo quá trình lưu
