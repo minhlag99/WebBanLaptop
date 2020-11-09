@@ -161,7 +161,7 @@
                   </span>
                 </div>
 
-                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis asperiores eveniet iure impedit soluta aliquid. </p>
+                <p><?php echo$row['short_description'];?></p>
                 <a href="product-details.php?sanpham=<?php echo$row['ID'];?>" class="filled-button">Chi tiết</a>
               </div>
             </div>

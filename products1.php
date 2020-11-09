@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <title>PHPJabbers.com | Free Mobile Store Website Template</title>
+    <title>Laptop Store | Website</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -52,39 +53,53 @@
         </div>
       </div>
     </div>
-    
+
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Mobile Store<em> Website</em></h2></a>
+          <a class="navbar-brand" href="index.php"><h2>Laptop Store<em>.W ebsite</em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Home
+              <li class="nav-item active">
+                <a class="nav-link" href="index.php">Trang Chủ
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="products.html">Products</a>
+              <li class="nav-item dropdown">
+			            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Hãng sản xuất</a>
+			            <div class="dropdown-menu">
+				  <?php
+				  include "server.php";
+				  $query="SELECT * from catalog";
+				  $data =mysqli_query($conn,$query);
+				  while($row=mysqli_fetch_array($data))
+				  {
+				  ?>
+                    <a class="dropdown-item" href="products1.php?Name=<?php echo$row['Parent_ID'];?>"><?php echo $row['Name']?></a>
+          <?php
+          }
+          ?>
+				  </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="checkout.html">Checkout</a>
-              </li>
-              <li class="nav-item dropdown active">
-                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-              
-                <div class="dropdown-menu">
-                    <a class="dropdown-item active" href="about.html">About Us</a>
-                    <a class="dropdown-item" href="blog.html">Blog</a>
-                    <a class="dropdown-item " href="testimonials.html">Testimonials</a>
-                    <a class="dropdown-item" href="terms.html">Terms</a>
-                </div>
+                <a class="nav-link" href="products.php?page=1">Sản phẩm</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
+                <a class="nav-link" href="checkout.php">Thanh toán</a>
+              </li>
+              <li class="nav-item">
+              <?php 
+                if (isset($_SESSION['Name']) && $_SESSION['Name']){
+                  echo 'Xin chào '.$_SESSION['Name']."<br/>";
+                  echo '<a href="logout.php" class="filled-button">Đăng xuất</a>';
+                }
+                else{
+                  echo '<a href="login.php" class="filled-button">Đăng nhập</a>';
+              }
+              ?>
               </li>
             </ul>
           </div>
@@ -92,84 +107,81 @@
       </nav>
     </header>
 
+
     <!-- Page Content -->
     <div class="page-heading header-text">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1>About Us</h1>
-            <span>We have over 20 years of experience</span>
+            <h1>Products</h1>
+            <span>Lorem ipsum dolor sit amet.</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="more-info about-info">
-      <div class="container">
+    <div class="services">
+      <div class="container"> 
+      <?php
+            include "server.php";
+            $detail1=$_GET['ID'];
+            $query="SELECT * FROM product Where Catalog_ID = $detail1";
+            $limit=6;
+            $data1=mysqli_query($conn,$query);
+            $num_rows=mysqli_num_rows($data);
+            $total_page=ceil($num_rows/$limit);
+            $curent_page=$_GET['page'];
+          ?>
         <div class="row">
-          <div class="col-md-12">
-            <div class="more-info-content">
-              <div class="row">
-                <div class="col-md-6 align-self-center">
-                  <div class="right-content">
-                    <span>Lorem ipsum dolor sit amet</span>
-                    <h2>Get to know about <em>our company</em></h2>
-                    <p>Fusce nec ultrices lectus. Duis nec scelerisque risus. Ut id tempor turpis, ac dignissim ipsum. Nulla ullamcorper, ipsum vel condimentum congue, mi odio vehicula tellus, sit amet malesuada justo sem. 
-                    <br><br>Pellentesque in sagittis lacus, vel auctor sem. Quisque eu quam eleifend, ullamcorper dui nec, luctus quam.</p>
-                  </div>
+         
+          <div class="col-md-4">
+            <div class="service-item">
+              <img style ="height:300px" src="<?php echo $row['Image_link']; ?>" alt="">
+              <div class="down-content">
+                <h4><?php echo $row['Name']; ?></h4>
+                <div style="margin-bottom:10px;">
+                  <span>
+                      <del><sup>$</sup>1999 </del> &nbsp; <sup>VND</sup><?php echo $row['Price'];?>
+                  </span>
                 </div>
-                <div class="col-md-6">
-                  <div class="left-image">
-                    <img src="assets/images/about-1-570x350.jpg" alt="">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="fun-facts">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="left-content">
-              <span>Lorem ipsum dolor sit amet</span>
-              <h2>Modi esse sapiente tenetur <em>impedit laudantium laborum</em></h2>
-              <p>Pellentesque ultrices at turpis in vestibulum. Aenean pretium elit nec congue elementum. Nulla luctus laoreet porta. Maecenas at nisi tempus, porta metus vitae, faucibus augue. 
-              <br><br>Fusce et venenatis ex. Quisque varius, velit quis dictum sagittis, odio velit molestie nunc, ut posuere ante tortor ut neque.</p>
-            </div>
-          </div>
-          <div class="col-md-6 align-self-center">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="count-area-content">
-                  <div class="count-digit">1245</div>
-                  <div class="count-title">Products</div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="count-area-content">
-                  <div class="count-digit">1280</div>
-                  <div class="count-title">Happy clients</div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="count-area-content">
-                  <div class="count-digit">3</div>
-                  <div class="count-title">Cities</div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="count-area-content">
-                  <div class="count-digit">5</div>
-                  <div class="count-title">Stores</div>
-                </div>
+                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis asperiores eveniet iure impedit soluta aliquid. </p>
+                <a href="product-details.php?sanpham=<?php echo$row['ID'];?>" class="filled-button">Chi Tiet</a>
               </div>
             </div>
+
+            <br>
           </div>
+
+
+        
+
+         
+
+         
         </div>
+        <div class="page"> 
+        <nav>
+          <ul class="pagination pagination-lg justify-content-center">
+
+            
+            
+            
+            
+          </ul>
+          
+          
+          
+        </nav>
+        
+        </div>
+        
+        
+
+        <br>
+        <br>
+        <br>
+        <br>
       </div>
     </div>
 

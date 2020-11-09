@@ -133,7 +133,7 @@
             $curent_page=$_GET['page'];
             if(!$curent_page){
               $curent_page=1;
-              header('location:".$_SERVER."');
+              header('location:products-brand.php?page=1');
             }
             if($curent_page>$total_page){
               $curent_page=$total_page;
@@ -142,8 +142,7 @@
             if($num_rows>0){
               $star= ($curent_page-1)*$limit;
               $query1="SELECT * FROM product limit $star,$limit ";
-              $data1=mysqli_query($conn,$query1);
-            
+              $data1=mysqli_query($conn,$query1); 
           ?>
         <div class="row">
           <?php
@@ -157,10 +156,10 @@
                 <h4><?php echo $row['Name']; ?></h4>
                 <div style="margin-bottom:10px;">
                   <span>
-                      <del><sup>$</sup>1999 </del> &nbsp; <sup>VND</sup><?php echo $row['Price'];?>
+                    <sup>VND</sup><?php echo $row['Price'];?>
                   </span>
                 </div>
-                <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis asperiores eveniet iure impedit soluta aliquid. </p>
+                <p><?php echo $row['short_description']; ?></p>
                 <a href="product-details.php?sanpham=<?php echo$row['ID'];?>" class="filled-button">Chi Tiet</a>
               </div>
             </div>
@@ -175,7 +174,7 @@
            
             <?php
             for($i=1;$i<=$total_page;$i++){
-              echo " <li class='page-item'><a class='page-link' href= 'products1.php?page=".$i."'>".$i."</a></li>";
+              echo " <li class='page-item'><a class='page-link' href= 'products-brand.php?page=".$i."'>".$i."</a></li>";
             }
           }         
             ?>

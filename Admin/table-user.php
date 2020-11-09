@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title>ADMIN</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -36,18 +37,13 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3"><sup>2</sup></div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
 
             <!-- Divider -->
             <!-- Nav Item - Utilities Collapse Menu -->
@@ -57,38 +53,20 @@
                 <span>Quản lí</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <?php
-                        include "server.php";
-                        $query="SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = 'Web_laptop' and TABLE_NAME not LIKE 'order' and TABLE_NAME NOT like 'transaction'";
-                        $data =mysqli_query($conn,$query);
-                        while($row=mysqli_fetch_array($data))
-                        {
-                        ?>
+               
                 <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="Table.php?name=<?php echo$row['0'];?>">Quản lí <?php echo$row['0'];?></a>
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="Table-products.php">Quản lí sản phẩm</a>
+                    <a class="collapse-item" href="Table-user.php">Quản lí user</a>
+                    <a class="collapse-item" href="Table-admin.php">Quản lí admin</a>
                 </div>
-                <?php
-                        }
-                        ?>
+               
                 </div>
             </li>
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
-            </li>
-
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
-            </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
-
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -96,18 +74,8 @@
 
     </ul>
             <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -146,7 +114,7 @@
                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form>x`
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -280,10 +248,14 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-                            </a>
+                            <?php 
+                                if (isset($_SESSION['Name']) && $_SESSION['Name']){
+                                    echo 'Xin chào '.$_SESSION['Name']."<br/>";
+                                    echo '<a href="logout.php" class="filled-button">Đăng xuất</a>';
+                                }
+                                else{
+                                echo '<a href="login.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Đăng nhập</a>';
+                            }?>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
@@ -324,97 +296,35 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <?php
                                 include "server.php";
-                                $name=$_GET['name'];
-				                $query="SELECT * FROM $name ";
-				                $data =mysqli_query($conn,$query);
-				                if($name =='admin'){
-                                    echo 
-                                    "<thead>
+				                $query="SELECT * FROM user ";
+				                $data1 =mysqli_query($conn,$query);
+                                    ?>
+                                    <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Name</th>
-                                            <th>User_Name</th>
-                                            <th>Password</th>
-                                            <th></th>
-                                            <th></th>
+                                            <th>Email</th>
+                                            <th>Full Name</th>
+                                            <th>Address</th>
+                                            <th>status</th>
+                                            <th>Khoá</th>
                                         </tr>
                                     </thead>
-                                    <tbody>";
-                                    while($row=mysqli_fetch_array($data)){
-                                        echo 
-                                        "<tbody>
+                                    <?php
+                                    while($row=mysqli_fetch_assoc($data1)){
+                                        ?>
+                                        <tbody>
                                         <tr>
-                                            <th>".$row['ID']."</th>
-                                            <th>".$row['Name']."</th>
-                                            <th>".$row['User_Name']."</th>
-                                            <th>".$row['Password']."</th>
-                                            <th></th>
-                                            <th></th>
+                                            <th><?php echo $row['ID']?></th>
+                                            <th><?php echo $row['Email']?></th>
+                                            <th><?php echo $row['Name']?></th>
+                                            <th><?php echo $row['Address']?></th>
+                                            <th><?php echo $row['status']?></th>
+                                            <th><a href="lock-user.php?id=<?php echo $row['ID'];?>">LOCK/UNLOCK</a></th>
                                         </tr>
-                                    </tbody>";
+                                    </tbody>
+                                    <?php
                                     }
-                                }
-                                if($name =='catalog'){
-                                    echo 
-                                    "<thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Parent_ID</th>
-                                            <th>Sort_order</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>";
-                                    while($row=mysqli_fetch_array($data)){
-                                        echo 
-                                        "<tbody>
-                                        <tr>
-                                            <th>".$row['ID']."</th>
-                                            <th>".$row['Name']."</th>
-                                            <th>".$row['Parent_ID']."</th>
-                                            <th>".$row['Sort_order']."</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </tbody>";
-                                    }
-                                }
-                                if($name =='product'){
-                                    echo 
-                                    "<thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Catalog_ID</th>
-                                            <th>Name</th>
-                                            <th>Price</th>
-                                            <th>Discount</th>
-                                            <th>Image</th>
-                                            <th>Created</th>
-                                            <th>Short_description<th>
-                                            <th><th>
-                                            <th><th>
-                                        </tr>
-                                    </thead>";
-                                    while($row=mysqli_fetch_array($data)){
-                                        echo 
-                                        "<tbody>
-                                        <tr>
-                                            <th>".$row['ID']."</th>
-                                            <th>".$row['Catalog_ID']."</th>
-                                            <th>".$row['Name']."</th>
-                                            <th>".$row['Price']."</th>
-                                            <th>".$row['Discount']."</th>
-                                            <th><img scr=".$row['Image_link']."/></th>
-                                            <th>".$row['Created']."</th>
-                                            <th>".$row['short_description']."</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                    </tbody>";
-                                    }
-                                }
-				                ?>
+                                ?>
                                 </table>
                             </div>
                         </div>

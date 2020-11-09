@@ -18,6 +18,13 @@ if (isset($_POST['login']))
 		echo "<script>alert('Xin vui lòng điền đủ thông tin');window.history.go(-1);</script>";
         exit;
     }
+    $queryy ="SELECT status FROM user WHERE Name='$username'";
+	$dataa =mysqli_query($conn,$queryy);
+	$row=mysqli_num_rows($dataa);
+	if ($row=='LOCK') {
+		echo "<script>alert('Tài khoản của bạn đã bị khoá.');history.go(-1);</script>";
+		die();
+	};
      
     // mã hóa pasword
      
@@ -41,7 +48,7 @@ if (isset($_POST['login']))
     }
     //Lưu tên đăng nhập
     $_SESSION['Name'] = $username;
-	echo "<script>alert('Đăng nhập thành công');history.go(-2);;</script>";
+	echo "<script>alert('Đăng nhập thành công');window.location.href='index.php';</script>";
     die();
 }
 ?>
